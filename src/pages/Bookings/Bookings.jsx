@@ -2,11 +2,28 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import BookingRow from "./BookingRow";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const Bookings = () => {
     const { user } = useContext(AuthContext);
     const [bookings, setBookings] = useState([])
+
+    const url = `http://localhost:5000/bookings?email=${user?.email}`;
+
+    useEffect(() => {
+
+        axios.get(url, {withCredentials: true})
+        .then(res=>{
+            setBookings(res.data)
+        })
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data);
+        //         setBookings(data);
+        //     })
+    }, [])
 
     const handleDelete = id => {
         const proceed = confirm('Are you Sure');
@@ -53,16 +70,9 @@ const Bookings = () => {
             })
     }
 
-    const url = `http://localhost:5000/bookings?email=${user?.email}`;
+   
 
-    useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                setBookings(data);
-            })
-    }, [])
+   
     return (
         <div>
             <h2 className="text-4xl text-center font-bold">Your Bookings: {bookings.length}</h2>
