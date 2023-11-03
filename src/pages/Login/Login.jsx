@@ -3,7 +3,7 @@ import login from '../../assets/images/login/login.svg'
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
-import axios from 'axios';
+//import axios from 'axios';
 
 const Login = () => {
     const {signIn} = useContext(AuthContext);
@@ -31,13 +31,13 @@ const Login = () => {
             
 
             //get access token
-            axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
-            .then(res=>{
-                console.log(res.data)
-                if(res.data.success){
-                    navigate(location?.state ? location?.state : '/')
-                }
-            })
+            // axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+            // .then(res=>{
+            //     console.log(res.data)
+            //     if(res.data.success){
+            //         navigate(location?.state ? location?.state : '/')
+            //     }
+            // })
         })
         .catch(error=>{
             console.log(error.message);
